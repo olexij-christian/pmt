@@ -110,4 +110,6 @@ while [ "$#" -gt 0 ]; do
 done
 
 # Install packages
-os::pm:cmd_install "${packages_to_install[@]}"
+if [ -n "${packages_to_install[@]}" ]; then
+  os::pm:cmd_install "${packages_to_install[@]}"
+fi
