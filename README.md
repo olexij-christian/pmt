@@ -51,10 +51,12 @@ To translate package names, just enter command of target package managers.
 pmt <package-manager> <install-command> <packages...>
 ```
 
-For example:
+For example when fedora is target OS:
 
 ```bash
 pmt apt install i3-wm bash
+# translate to
+sudo dnf install i3 bash
 ```
 Isn't it cool?
 
