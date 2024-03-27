@@ -39,6 +39,7 @@ function repo::get_paths {
 
   case "$pm" in
     "apt" | "apt-get")
+        # TODO print warning about null byte, fix it
         echo -n "$(repo::apt:path $pkg_name)"
       ;;
     "dnf")
@@ -58,12 +59,9 @@ function repo::apt:pkg {
   echo "$link_pkg" | head -n 1 # NOTE: get only first founded path with pkg name
 }
 
-# TODO: fix bug log some information but make not log
 function repo::apt:path {
   pkg_name=$1
-  html=$(curl -s "$__repo_path_debian$pkg_name")
-  link_list_files=$(echo "$html" | grep -oP '<a\s+[^>]*\bhref="(/'"$__repo_version_debian"'/'"$ARCH"'[^"]*)"[^>]*>' | sed -n '2 s/.*href="\/bookworm\/\([^"]*\).*/\1/p')
-  full_link_list_files="$__repo_path_debian$link_list_files"
+  full_link_list_files="$__repo_path_debian$ARCH/$pkg_name/filelist"
   html=$(curl -s "$full_link_list_files")
 
   echo "$html" | grep -Pzo '(?s)<div id="pfilelist">.*?</pre>' | sed 's/<[^>]*>//g'
