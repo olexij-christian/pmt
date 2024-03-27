@@ -45,7 +45,7 @@ The `make` command will automatically compile PMT, and the `make install` comman
 
 ### Basic Usage
 
-To translate package names, use the `translate` command followed by the source and target package managers.
+To translate package names, just enter command of target package managers.
 
 ```bash
 pmt <package-manager> <install-command> <packages...>
@@ -56,6 +56,7 @@ For example:
 ```bash
 pmt apt install i3-wm bash
 ```
+Isn't it cool?
 
 ### Available Package Managers
 
