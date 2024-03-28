@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION="v0.1.0"
+VERSION="v0.1.1"
 
 # Get the directory of the script
 DIR="$(dirname "$(readlink -f "$0")")"
