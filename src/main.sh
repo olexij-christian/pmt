@@ -6,6 +6,7 @@ DIR="$(dirname "$(readlink -f "$0")")"
 
 # Import
 source $DIR/common.sh
+source $DIR/api_log.sh
 source $DIR/api_os.sh
 source $DIR/api_repos.sh
 
@@ -42,7 +43,7 @@ while [[ "$1" == -* ]]; do
       usage
       ;;
     *)
-      error "Unsupported flag \"$1\"."
+      log::error "Unsupported flag \"$1\"."
       ;;
   esac
 
@@ -51,14 +52,14 @@ done
 
 # Ensure enough arguments are provided
 if [ "$#" -lt 3 ]; then
-  error "Insufficient arguments. At least 3 arguments are required."
+  log::error "Insufficient arguments. At least 3 arguments are required."
 fi
 
 # Set default package manager if not provided
 if [ -z "$PM" ]; then
   PM=$__OS_PM_NAME
   if [ -z "$PM" ]; then
-    error "Environment variable 'PM' not set. Set it to your OS package manager."
+    log::error "Environment variable 'PM' not set. Set it to your OS package manager."
   fi
 fi
 
@@ -102,7 +103,7 @@ while [ "$#" -gt 0 ]; do
       fi
       ;;
     *)
-      error "Unsupported package manager: $pm_name. Supported managers: apt, apt-get, dnf."
+      log::error "Unsupported package manager: $pm_name. Supported managers: apt, apt-get, dnf."
       ;;
   esac
 

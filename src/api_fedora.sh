@@ -34,18 +34,18 @@ function repo::dnf:fedora:path {
 
     # TODO: returns warns ONLY when get server error
     if [ -z "$pkg_link" ]; then
-      warn "Problem when download page for information about package, so retry: $target query_url=$query_url "
+      log::warn "Problem when download page for information about package, so retry: $target query_url=$query_url "
       ((try_num++))
       if [ "$try_num" -lt 5 ]; then
         update_pkg_link
       else
-        error "Problem when try download page for information about package: $target"
+        log::error "Problem when try download page for information about package: $target"
       fi
     fi
 
     found_pkg_name="$(basename "$pkg_link")"
     if [ "$found_pkg_name" != "$target" ]; then
-      error "Package $target is not found in repository"
+      log::error "Package $target is not found in repository"
     fi
   }
 
@@ -73,12 +73,12 @@ function repo::dnf:fedora:path {
 
     # NOTE: if .container is not exists then has some nginx error from example 404
     if [ "$throw_error" = true ]; then
-      warn "Problem when download page for package, so retry: $target url=$url"
+      log::warn "Problem when download page for package, so retry: $target url=$url"
       ((try_num++))
       if [ "$try_num" -lt 5 ]; then
         try_download_data
       else
-        error "Cannot to download page for package: $target url=$url"
+        log::error "Cannot to download page for package: $target url=$url"
       fi
     fi
   }
@@ -94,7 +94,7 @@ function repo::dnf:fedora:path {
   # in system by dnf
   try_download_data
 
-  debug "successfully downloaded for package: $target" #if-used: DEBUG
+  log::debug "successfully downloaded for package: $target" #if-used: DEBUG
 
   data="${data#"${data%%[![:space:]]*}"}"
   data="${data%"${data##*[![:space:]]}"}"

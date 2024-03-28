@@ -28,7 +28,7 @@ function repo::get_pkgs {
         echo -n $(repo::dnf:pkg $path)
       ;;
     *)
-      error "Undefined package manager $pm. Can use apt or dnf."
+      log::error "Undefined package manager $pm. Can use apt or dnf."
       ;;
   esac
 }
@@ -46,7 +46,7 @@ function repo::get_paths {
         echo -n "$(repo::dnf:path $pkg_name)"
       ;;
     *)
-      error "Undefined package manager $pm. Can use apt or dnf."
+      log::error "Undefined package manager $pm. Can use apt or dnf."
       ;;
   esac
 }
@@ -77,7 +77,7 @@ function repo::dnf:pkg {
   fi
 
   if [ "$pkg_name_list" == "404: Not Found" ]; then
-    error "Cannot find path in repository: path=$path_from_pkg"
+    log::error "Cannot find path in repository: path=$path_from_pkg"
   else
     echo $pkg_name_list
   fi
@@ -85,7 +85,7 @@ function repo::dnf:pkg {
 
 function repo::dnf:pkg:cache:auto_prepare {
   if [ ! -e $__dnf_paths_dir_path ]; then
-    info "Prepare cache for fedora repository" 
+    log::info "Prepare cache for fedora repository" 
     repo::dnf:pkg:cache:prepare
   fi
 }

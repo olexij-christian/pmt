@@ -19,19 +19,3 @@ __dnf_paths_dir_name="dnf_paths"
 __dnf_paths_url="https://github.com/olexij-christian/dnf_paths/releases/download/default/dnf_paths.tar.gz"
 __dnf_paths_dir_path="$__cache_dir/$__dnf_paths_dir_name"
 
-function error {
-  gum log -l error $1
-  exit 1
-}
-
-info() {
-  gum log -l info $1
-}
-
-warn() {
-  gum log -l warn $1
-}
-
-debug() {
-  gum log -l debug $1
-}

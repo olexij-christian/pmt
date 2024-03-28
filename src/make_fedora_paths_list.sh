@@ -2,6 +2,7 @@
 DIR="$(dirname "$(readlink -f "$0")")"
 
 source $DIR/common.sh
+source $DIR/api_log.sh
 source $DIR/api_repos.sh
 
 # TODO should refactoring
@@ -22,7 +23,7 @@ get_data() {
 mkdir -p $_dir_name
 
 if [ ! -e "fedora_pkg_list" ]; then
-  debug "Prepare list of packages in repository of fedora"
+  log::debug "Prepare list of packages in repository of fedora"
   bash get_fedora_pkg_list.sh > "$_plan_list"
 fi
 

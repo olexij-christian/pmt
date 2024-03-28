@@ -2,6 +2,7 @@
 DIR="$(dirname "$(readlink -f "$0")")"
 
 source $DIR/common.sh
+source $DIR/api_log.sh
 
 if [ -z "$NUM_THREADS" ]; then
   NUM_THREADS="$(nproc)"
@@ -21,7 +22,7 @@ scrape_url() {
   result=$(echo "$subpage_html" | pup "li > a" text{})
   echo "$result"
   source common.sh
-  debug "Load successfully page: $1"       #show-if-used: DEBUG
+  log::debug "Load successfully page: $1"       #show-if-used: DEBUG
 }
 
 # for href in $hrefs; do      

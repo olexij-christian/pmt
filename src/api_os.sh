@@ -33,10 +33,10 @@ function os::pm:cmd_install {
   local prefix_sudo="${_os_pm_cmd_install_prefix[$__OS_PM_NAME]}"
   local cmd_install="${_os_pm_cmd_install[$__OS_PM_NAME]}"
   if [ -z $cmd_install ]; then
-    error "Information about package manager $__PS_PM_NAME is not provided"
+    log::error "Information about package manager $__PS_PM_NAME is not provided"
   fi
   local result_command="$prefix_sudo $__OS_PM_NAME $cmd_install $@" # Example: sudo apt install i3-wm bash
-  info "Will execute command: $result_command"
+  log::info "Will execute command: $result_command"
   if [ -z "$DRY_RUN" ]; then
     if [ -n "$ALWAYS_YES" ]; then
       $result_command
