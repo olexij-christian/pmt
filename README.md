@@ -74,7 +74,7 @@ Package managers for future:
 - [ ] apk (Alpine)
 - [ ] brew (macOS or Linux)
 - [ ] xbps (Void)
-- [ ] zypper (zypper)
+- [ ] zypper (openSUSE)
 - [ ] nix-env (Nix)
 - [ ] eopkg (Solus)
 
