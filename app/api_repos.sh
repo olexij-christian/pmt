@@ -1,4 +1,3 @@
-
 # stdin is list if paths of package in first pm
 function repo::translate_paths_to_pkgs {
   local pm2_name="$1"

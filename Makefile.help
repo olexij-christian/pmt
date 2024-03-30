@@ -1,0 +1,12 @@
+
+- install
+make install # install globally for system
+make install USR=$HOME/.local # install locally for user
+
+- uninstall
+make uninstall # uninstall
+make uninstall USR=$HOME/.local  # uninstall for custom directory
+
+- fedora
+make fedora # build server files for fedora repositories
+

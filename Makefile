@@ -10,15 +10,17 @@ BUILD_DIR					?= ./build
 EXECUTABLE_PATH = $(INSTALL_DIR)/main.sh
 BIN_EXECUTABLE_PATH = $(INSTALL_BIN_DIR)/$(INSTALL_BIN_NAME)
 
-SOURCE_DIR := ./src
+SOURCE_DIR := ./app
+SOURCE_SERVER_DIR := ./server
 
-build:
-	rm -rf $(BUILD_DIR)
-	cp -r $(SOURCE_DIR) $(BUILD_DIR)
+all: help
 
-paths_fedora:
-	cd $(BUILD_DIR) ;\
-		bash make_fedora_paths_list.sh
+help:
+	cat Makefile.help
+
+fedora:
+	mkdir -p $(BUILD_DIR)
+	bash $(SOURCE_SERVER_DIR)/fedora.sh $(BUILD_DIR)
 
 watcher:
 	watcher --clear --cmd "make --always-make build" $(SOURCE_DIR)/*
@@ -35,4 +37,4 @@ uninstall:
 	rm $(BIN_EXECUTABLE_PATH)
 
 clean:
-	rm -r $(BUILD_DIR)
+	rm -rf $(BUILD_DIR)
