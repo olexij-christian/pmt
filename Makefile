@@ -1,6 +1,6 @@
 SHELL=/bin/bash
 
-USR 							?= /usr/local
+USR								?= /usr/local
 INSTALL_DIR_NAME  ?= pmt
 INSTALL_BIN_NAME  ?= $(INSTALL_DIR_NAME)
 INSTALL_DIR 			?= $(USR)/share/$(INSTALL_DIR_NAME)
