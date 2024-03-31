@@ -1,11 +1,11 @@
 SHELL=/bin/bash
 
-USR								?= /usr/local
+USR               ?= /usr/local
 INSTALL_DIR_NAME  ?= pmt
 INSTALL_BIN_NAME  ?= $(INSTALL_DIR_NAME)
-INSTALL_DIR 			?= $(USR)/share/$(INSTALL_DIR_NAME)
+INSTALL_DIR 	  ?= $(USR)/share/$(INSTALL_DIR_NAME)
 INSTALL_BIN_DIR   ?= $(USR)/bin
-BUILD_DIR					?= ./build
+BUILD_DIR         ?= ./build
 
 EXECUTABLE_PATH = $(INSTALL_DIR)/main.sh
 BIN_EXECUTABLE_PATH = $(INSTALL_BIN_DIR)/$(INSTALL_BIN_NAME)
