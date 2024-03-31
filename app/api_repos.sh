@@ -90,9 +90,10 @@ function repo::dnf:pkg:cache:auto_prepare {
 }
 
 function repo::dnf:pkg:cache:prepare {
-  archive_path=${__dnf_paths_dir_path}.tar.gz
+  local archive_path=${__dnf_paths_dir_path}.tar.gz
   gum spin --title "Downloading" -- curl -L $__dnf_paths_url -o $archive_path
   gum spin --title "Extracting" -- tar -xzvf $archive_path -C $__cache_dir
+  gum spin --title "Removing archive" -- rm $archive_path
 }
 
 source $DIR/api_fedora.sh
