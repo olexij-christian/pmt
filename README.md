@@ -10,6 +10,7 @@ PMT is a lightweight command-line tool designed to facilitate the translation of
 
 ## Dependencies
 
+- bash
 - curl
 - [pup](https://github.com/ericchiang/pup)
 - [gum](https://github.com/charmbracelet/gum)
