@@ -10,3 +10,6 @@ make uninstall USR=$HOME/.local  # uninstall for custom directory
 - fedora
 make fedora # build server files for fedora repositories
 
+-ubuntu
+make ubuntu # build server files for ubuntu repositories
+

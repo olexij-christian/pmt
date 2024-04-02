@@ -22,6 +22,10 @@ fedora:
 	mkdir -p $(BUILD_DIR)
 	bash $(SOURCE_SERVER_DIR)/fedora.sh $(BUILD_DIR)
 
+ubuntu:
+	mkdir -p $(BUILD_DIR)
+	bash $(SOURCE_SERVER_DIR)/ubuntu.sh $(BUILD_DIR)
+
 watcher:
 	watcher --clear --cmd "make --always-make build" $(SOURCE_DIR)/*
 
