@@ -47,8 +47,13 @@ for raw_pkg_info in "$UBUNTU_PKG_RAW_LIST_DIR/*"; do
 done
 
 # Generate paths of pkgs with name of every pkg
-UBUNTU_PATHS=$BUILD_DIR/ubuntu_paths
-rm -rf $UBUNTU_PATHS
-mkdir $UBUNTU_PATHS
+UBUNTU_PKG2PATHS=$BUILD_DIR/ubuntu_pkg2paths
+rm -rf $UBUNTU_PKG2PATHS
+mkdir $UBUNTU_PKG2PATHS
+
+while IFS= read -r pkg_name; do
+  echo -n "$(repo::get_paths apt $pkg_name)" > $UBUNTU_PKG2PATHS/$pkg_name
+  log::debug "Paths of package $pkg_name is prepared"
+done < "$UBUNTU_PKG_LIST"
 
 # TODO Wait developer... : )

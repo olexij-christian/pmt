@@ -20,8 +20,11 @@ function repo::get_pkgs {
   local path=$2 # Example: /usr/bin/bash
 
   case "$pm" in
-    "apt" | "apt-get")
-        echo -n $(repo::apt:pkg $path) 
+    "apt")
+        echo -n "$(repo::apt:pkg:ubuntu $path)"
+      ;;
+    "apt-get")
+        echo -n $(repo::apt:pkg:debian $path) 
       ;;
     "dnf")
         echo -n $(repo::dnf:pkg $path)
@@ -37,9 +40,11 @@ function repo::get_paths {
   local pkg_name=$2 # Example: qt6-base-dev
 
   case "$pm" in
-    "apt" | "apt-get")
-        # TODO print warning about null byte, fix it
-        echo -n "$(repo::apt:path $pkg_name)"
+    "apt")
+        echo -n "$(repo::apt:path:ubuntu $pkg_name)"
+      ;;
+    "apt-get")
+        echo -n "$(repo::apt:path:debian $pkg_name)"
       ;;
     "dnf")
         echo -n "$(repo::dnf:path $pkg_name)"
@@ -50,18 +55,38 @@ function repo::get_paths {
   esac
 }
 
+function repo::apt:pkg:ubuntu {
+  repo::apt:pkg $1 $__repo_pkg_ubuntu 
+}
+
+function repo::apt:pkg:debian {
+  repo::apt:pkg $1 $__repo_pkg_debian
+}
+
+function repo::apt:path:ubuntu {
+  repo::apt:path $1 $__repo_path_ubuntu
+}
+
+function repo::apt:path:debian {
+  repo::apt:path $1 $__repo_path_debian
+
+}
+
 function repo::apt:pkg {
-  path_from_pkg=$1
-  html=$(curl -s "$__repo_pkg_debian$path_from_pkg")
-  link_pkg=$(echo "$html" | grep -oP '<a\s+[^>]*\bhref="/'"$__repo_version_debian"'[^"]*"[^>]*>\K.*?(?=<\/a>)')
+  local path_from_pkg=$1
+  local pkgs_url=$2
+  local html=$(curl -s "$pkgs_url$path_from_pkg")
+  local link_pkg=$(echo "$html" | grep -oP '<a\s+[^>]*\bhref="/'"$__repo_version_debian"'[^"]*"[^>]*>\K.*?(?=<\/a>)')
 
   echo "$link_pkg" | head -n 1 # NOTE: get only first founded path with pkg name
 }
 
+# TODO print warning about null byte, fix it
 function repo::apt:path {
-  pkg_name=$1
-  full_link_list_files="$__repo_path_debian$ARCH/$pkg_name/filelist"
-  html=$(curl -s "$full_link_list_files")
+  local pkg_name=$1
+  local paths_url=$2
+  local full_link_list_files="$paths_url$ARCH/$pkg_name/filelist"
+  local html=$(curl -s "$full_link_list_files")
 
   echo "$html" | grep -Pzo '(?s)<div id="pfilelist">.*?</pre>' | sed 's/<[^>]*>//g'
 }
